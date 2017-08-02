@@ -17,6 +17,19 @@ class BucketTest extends \PHPUnit_Framework_TestCase
         $this->bucket = new Bucket();
     }
 
+    public function testConstructWithValue()
+    {
+        $constructValues = [
+            'firstId' => 'firstValue',
+            'secondId' => 'secondValue'
+        ];
+
+        $bucket = new Bucket($constructValues);
+
+        $this->assertSame('firstValue', $bucket->get('firstId'));
+        $this->assertSame('secondValue', $bucket->get('secondId'));
+    }
+
     public function testValues()
     {
         $id = "myValue";

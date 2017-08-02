@@ -1,4 +1,5 @@
 <?php
+
 namespace CodeJet\Bucket;
 
 use CodeJet\Bucket\Exception\NotFoundException;
@@ -14,6 +15,13 @@ class Bucket implements ContainerInterface
 
     /** @var ContainerInterface */
     private $delegateContainer;
+
+    public function __construct(array $values = [])
+    {
+        foreach ($values as $id => $value) {
+            $this->add($id, $value);
+        }
+    }
 
     /**
      * @param string $id
@@ -76,7 +84,7 @@ class Bucket implements ContainerInterface
     /**
      * @inheritdoc
      */
-    public function has($id) : bool
+    public function has($id): bool
     {
         return $this->hasFactory($id) || $this->hasValue($id);
     }
@@ -85,7 +93,7 @@ class Bucket implements ContainerInterface
      * @param $id
      * @return bool
      */
-    protected function hasFactory(string $id) : bool
+    protected function hasFactory(string $id): bool
     {
         return isset($this->factories[$id]);
     }
@@ -94,7 +102,7 @@ class Bucket implements ContainerInterface
      * @param $id
      * @return bool
      */
-    protected function hasValue(string $id) : bool
+    protected function hasValue(string $id): bool
     {
         return isset($this->values[$id]);
     }
